@@ -6,12 +6,12 @@ const User = require('../../models/users');
 router.post('/', (req, res) => {
     const email = req.body.email;
     User.findOne({ email: email }, (err, docs) => {
-        if (err) {
-            console.log(err);
-            res.send({ success: false, error: 'Error' });
-        } else if (docs.length) {
-            res.send({ success: false, error: 'User exists' });
-        } else {
+        // if (err) {
+        //     console.log(err);
+        //     res.send({ success: false, error: 'Error' });
+        // } else if (docs.length) {
+        //     res.send({ success: false, error: 'User exists' });
+        // } else {
             const newUser = new User({
                 name: req.body.name,
                 email: email,
@@ -24,15 +24,12 @@ router.post('/', (req, res) => {
             newUser.save(error => {
                 if (error) {
                     console.log(error);
-                    res.send({ success: false, error: 'Error' });
+                    res.send(400);
                 } else {
-                    res.send({
-                        success: true,
-                        message: 'User saved successfully',
-                    });
+                    res.send(200);
                 }
             });
-        }
+        // }
     });
 });
 
